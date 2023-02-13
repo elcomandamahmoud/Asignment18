@@ -118,6 +118,7 @@
             this.txtName.TabIndex = 8;
             this.txtName.Text = "الاسم";
             this.txtName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtName_KeyDown);
             // 
             // label5
             // 
@@ -160,6 +161,7 @@
             this.cbxItems.Size = new System.Drawing.Size(526, 31);
             this.cbxItems.TabIndex = 11;
             this.cbxItems.SelectedIndexChanged += new System.EventHandler(this.cbxItems_SelectedIndexChanged);
+            this.cbxItems.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbxItems_KeyDown);
             // 
             // txtPrice
             // 
@@ -191,6 +193,10 @@
             this.txtQty.TabIndex = 15;
             this.txtQty.Text = "1";
             this.txtQty.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtQty.TextChanged += new System.EventHandler(this.txtQty_TextChanged);
+            this.txtQty.Enter += new System.EventHandler(this.txtQty_Enter);
+            this.txtQty.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtQty_KeyDown);
+            this.txtQty.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtQty_KeyPress);
             // 
             // label9
             // 
@@ -332,6 +338,7 @@
             this.RightToLeftLayout = true;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dgvInvoice)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

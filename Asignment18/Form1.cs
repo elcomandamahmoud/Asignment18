@@ -15,11 +15,11 @@ namespace Asignment18
         public Form1()
         {
             InitializeComponent();
-        }        
+        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            txtInvNum.Text = new Random().Next(1000000,9999999)+"";
+            txtInvNum.Text = new Random().Next(1000000, 9999999) + "";
             txtDate.Text = DateTime.Now.ToString("MMM/d/yyyy hh:mm:ss tt");
             Dictionary<int, string> itemsData = new Dictionary<int, string>();
             itemsData.Add(16000, "لاب توب DELL");
@@ -34,21 +34,56 @@ namespace Asignment18
             itemsData.Add(950, "طابعة حبر HP");
             itemsData.Add(1650, "طابعة ليزر HP");
             itemsData.Add(400, "راوتر انترنت"); txtName.Select();
-            cbxItems.DataSource = new BindingSource(itemsData,null);
-            cbxItems.DisplayMember="value";
+            cbxItems.DataSource = new BindingSource(itemsData, null);
+            cbxItems.DisplayMember = "value";
             cbxItems.ValueMember = "key";
-            txtPrice.Text = cbxItems.SelectedValue+"";
+            txtPrice.Text = cbxItems.SelectedValue + "";
             txtName.Focus();
         }
 
-        private void cbxItems_SelectedIndexChanged(object sender, EventArgs e)
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            txtPrice.Text = cbxItems.SelectedValue + "";
-        }        
+            if (e.Control && e.Shift && e.KeyCode == Keys.N)
+            {
+                txtName.Focus();
+            }
+            else if (e.Control && e.Shift && e.KeyCode == Keys.T)
+            {
+                cbxItems.Focus();
+            }
+            else if (e.Control && e.Shift && e.KeyCode == Keys.P)
+            {
+                txtPrice.Focus();
+            }
+            else if (e.Control && e.Shift && e.KeyCode == Keys.Q)
+            {
+                txtQty.Focus();
+            }
+            else if (e.Control && e.Shift && e.KeyCode == Keys.D)
+            {
+                dgvInvoice.Focus();
+            }
+            else if (e.Control && e.Shift && e.KeyCode == Keys.A)
+            {
+                btnAdd.PerformClick();
+            }
+            else if (e.Control && e.Shift && e.KeyCode == Keys.L)
+            {
+                txtTotal.Focus();
+            }
+            else if (e.Control && e.KeyCode == Keys.P)
+            {
+                btnPrint.PerformClick();
+            }
+            else if (e.Alt && e.KeyCode == Keys.F4)
+            {
+                Application.Exit();
+            }
+        }
 
         private void txtDate_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button==MouseButtons.Right)
+            if (e.Button == MouseButtons.Right)
             {
                 txtDate.ContextMenu = new ContextMenu();
             }
@@ -56,7 +91,7 @@ namespace Asignment18
 
         private void txtDate_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode==Keys.Apps)
+            if (e.KeyCode == Keys.Apps)
             {
                 txtDate.ContextMenu = new ContextMenu();
             }
@@ -66,10 +101,70 @@ namespace Asignment18
         {
             e.Handled = true;
         }
-        
+
+        private void txtName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                cbxItems.Focus();
+            }
+        }
+
+        private void cbxItems_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            txtPrice.Text = cbxItems.SelectedValue + "";
+        }
+
+        private void cbxItems_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtQty.Focus();
+            }
+        }
+
+        private void txtQty_Enter(object sender, EventArgs e)
+        {
+            txtQty.Text = "1";
+            txtQty.SelectAll();
+        }
+
+        private void txtQty_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtQty_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtQty.Text) || txtQty.Text.Trim() == "0")
+            {
+                txtQty.Text = "1";
+                txtQty.SelectAll();
+            }
+        }
+
+        private void txtQty_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnAdd.PerformClick();
+            }
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            object[] InvoiceData = { cbxItems.Text, txtQty.Text, txtPrice.Text, (int.Parse(txtPrice.Text) * int.Parse(txtQty.Text)) };
+            dgvInvoice.Rows.Add(InvoiceData);
+            txtTotal.Text = (int.Parse(txtTotal.Text) + (int.Parse(txtPrice.Text) * int.Parse(txtQty.Text))) + "";
+            cbxItems.Focus();
+        }
+
         private void txtTotal_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button==MouseButtons.Right)
+            if (e.Button == MouseButtons.Right)
             {
                 txtTotal.ContextMenu = new ContextMenu();
             }
@@ -77,7 +172,7 @@ namespace Asignment18
 
         private void txtTotal_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode==Keys.Apps)
+            if (e.KeyCode == Keys.Apps)
             {
                 txtTotal.ContextMenu = new ContextMenu();
             }
@@ -86,12 +181,6 @@ namespace Asignment18
         private void txtTotal_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
-        }
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            object[] InvoiceData = {cbxItems.Text, txtQty.Text, txtPrice.Text,(int.Parse(txtPrice.Text)*int.Parse(txtQty.Text)) };
-            dgvInvoice.Rows.Add(InvoiceData);
-            txtTotal.Text = (int.Parse(txtTotal.Text)+(int.Parse(txtPrice.Text)*int.Parse(txtQty.Text))) + "";
         }
     }
 }
