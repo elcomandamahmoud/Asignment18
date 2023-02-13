@@ -15,7 +15,7 @@ namespace Asignment18
         public Form1()
         {
             InitializeComponent();
-        }
+        }        
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -91,6 +91,7 @@ namespace Asignment18
         {
             object[] InvoiceData = {cbxItems.Text, txtQty.Text, txtPrice.Text,(int.Parse(txtPrice.Text)*int.Parse(txtQty.Text)) };
             dgvInvoice.Rows.Add(InvoiceData);
+            txtTotal.Text = (int.Parse(txtTotal.Text)+(int.Parse(txtPrice.Text)*int.Parse(txtQty.Text))) + "";
         }
     }
 }

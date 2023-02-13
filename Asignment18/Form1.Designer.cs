@@ -217,6 +217,7 @@
             this.dgvInvoice.Name = "dgvInvoice";
             this.dgvInvoice.RowHeadersWidth = 51;
             this.dgvInvoice.Size = new System.Drawing.Size(1002, 237);
+            this.dgvInvoice.StandardTab = true;
             this.dgvInvoice.TabIndex = 16;
             // 
             // colItem
